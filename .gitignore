@@ -1,0 +1,5 @@
+# Machine-local secrets (for future zshrc support)
+.zshrc.local
+
+# macOS
+.DS_Store

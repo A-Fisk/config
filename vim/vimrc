@@ -1,0 +1,155 @@
+" =============================================================================
+" PLUGINS
+" =============================================================================
+
+set nocompatible
+filetype off
+
+" Disable netrw
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+
+call plug#begin('~/.vim/plugged')
+
+" Writing / markup
+Plug 'vim-latex/vim-latex'
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
+
+" Notebooks
+Plug 'aaren/notedown'
+Plug 'szymonmaszke/vimpyter'
+Plug 'ivanov/vim-ipython'
+
+" Language support
+Plug 'jalvesaq/Nvim-R'
+Plug 'nvie/vim-flake8'
+Plug 'davidhalter/jedi-vim'
+
+" Navigation / UI
+Plug 'tpope/vim-surround'
+Plug 'knubie/vim-kitty-navigator', {'do': 'cp ./*.py ~/.config/kitty/'}
+Plug 'voldikss/vim-floaterm'
+Plug 'morhetz/gruvbox'
+
+" FZF
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+call plug#end()
+
+filetype plugin indent on
+
+
+" =============================================================================
+" APPEARANCE
+" =============================================================================
+
+set termguicolors
+set background=dark
+colorscheme gruvbox
+set number
+set linebreak
+syntax on
+set cc=81
+
+" Cursor shape per mode (1=blink block, 2=solid block, 5=blink bar, 6=solid bar)
+let &t_SI .= "\e[5 q"   " Insert  → blinking bar
+let &t_SR .= "\e[4 q"   " Replace → solid underscore
+let &t_EI .= "\e[1 q"   " Normal  → blinking block
+
+
+" =============================================================================
+" EDITOR BEHAVIOUR
+" =============================================================================
+
+" Indentation
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set shiftround
+set autoindent
+
+" Text width
+set textwidth=79
+
+" Splits open to the right and below
+set splitright
+set splitbelow
+
+" Open all folds by default
+set foldlevelstart=99
+
+" LaTeX
+set shellslash
+let g:tex_flavor = 'latex'
+
+
+" =============================================================================
+" FILE EXPLORER (vim-floaterm + ranger)
+" =============================================================================
+
+command! Ex FloatermNew --wintype=split --opener=edit ranger
+command! Sex FloatermNew --wintype=split --opener=split ranger
+command! Vex FloatermNew --wintype=vsplit --opener=vsplit ranger
+
+
+" =============================================================================
+" PLUGIN SETTINGS
+" =============================================================================
+
+" vim-markdown: disable auto-formatting in lists
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_auto_insert_bullets = 0
+
+" vimpyter: notebook keymaps
+autocmd FileType ipynb nmap <silent><leader>b :VimpyterInsertPythonBlock<CR>
+autocmd FileType ipynb nmap <silent><leader>j :VimpyterStartJupyter<CR>
+autocmd FileType ipynb nmap <silent><leader>n :VimpyterStartNteract<CR>
+
+
+" =============================================================================
+" KEYMAPS
+" =============================================================================
+
+" Clipboard
+noremap cpy "*y
+noremap cpp "*p
+noremap cpx "*d
+
+" Copy file path to clipboard
+nnoremap <leader>yp :! realpath % \| pbcopy<CR>
+
+" Remove trailing whitespace
+nnoremap <leader>el :%s/\s\+$//<CR>
+
+" Insert filename as title (capitalised)
+nnoremap <leader>f :call append(0, '# ' . substitute(expand('%:t:r'), '^.', '\U&', '')) \| normal! G<CR>
+
+" Insert parent directory name as title (capitalised)
+nnoremap <leader>d :call append(0, '# ' . substitute(expand('%:p:h:t'), '^.', '\U&', '')) \| normal! G<CR>
+
+" Fix markdown line breaks (adds trailing '  ' before list items)
+nnoremap <leader>md :call AddMarkdownBreaks()<CR>
+
+" Window resize shortcut
+command! Vres vertical resize 80
+
+
+" =============================================================================
+" FUNCTIONS
+" =============================================================================
+
+" Add '  ' to end of lines that precede a list item, for correct MD rendering
+function! AddMarkdownBreaks()
+    normal! gg
+    while line('.') < line('$')
+        let lnum = line('.') + 1
+        let txt = getline(lnum)
+        if txt =~# '^\s*-'
+            call setline('.', getline('.') . '  ')
+        endif
+        normal! j
+    endwhile
+endfunction
