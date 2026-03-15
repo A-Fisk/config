@@ -143,6 +143,8 @@ nnoremap <leader>md :call AddMarkdownBreaks()<CR>
 " Window resize shortcut
 command! Vres vertical resize 80
 
+" Insert date
+nnoremap <leader>td a<C-R>=strftime('%Y-%m-%d')<CR><Esc>
 
 " =============================================================================
 " FUNCTIONS
