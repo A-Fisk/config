@@ -36,6 +36,9 @@ Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" Colour scheme
+Plug 'dracula/vim', { 'name': 'dracula' }
+
 call plug#end()
 
 filetype plugin indent on
@@ -47,11 +50,15 @@ filetype plugin indent on
 
 set termguicolors
 set background=dark
-colorscheme gruvbox
 set number
 set linebreak
 syntax on
 set cc=81
+
+" set theme to match
+colorscheme dracula
+hi Normal guibg=NONE ctermbg=NONE
+hi NonText guibg=NONE ctermbg=NONE
 
 " Cursor shape per mode (1=blink block, 2=solid block, 5=blink bar, 6=solid bar)
 let &t_SI .= "\e[5 q"   " Insert  → blinking bar
