@@ -35,31 +35,9 @@ alias restart="source ~/.zshrc"
 alias gdrive="cd /Users/angusfisk/Documents/Google_drive"
 alias idea="vim /Users/angusfisk/Documents/github_repos/GTD/idea_capture.md"
 alias pwcopy='pwd | pbcopy'
-alias claude_chat="cd /Users/angusfisk/Documents/github_repos/local_ai_use && conda activate ai_env && python main.py --provider claude"
-alias chatgpt="cd /Users/angusfisk/Documents/github_repos/local_ai_use && conda activate ai_env && python main.py --provider chatgpt"
-alias gemini_chat="cd /Users/angusfisk/Documents/github_repos/local_ai_use && conda activate ai_env && python main.py --provider gemini"
-alias chat-work="conda activate ai_env && bash /Users/angusfisk/Documents/github_repos/local_ai_use/scripts/chat-work --prompt-id 12"
-alias local_chat="cd /Users/angusfisk/Documents/github_repos/local_ai_use && conda activate ai_env && python main.py --provider lmstudio --base-url http://localhost:1234/v1"
-alias ollama_chat="cd /Users/angusfisk/Documents/github_repos/local_ai_use && conda activate ai_env && python main.py --provider lmstudio --base-url http://localhost:11434"
 alias gtd="uv run python /Users/angusfisk/Documents/github_repos/GTD/gtd_viewer.py -f /Users/angusfisk/Documents/github_repos/GTD/idea_capture.md"
 
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/angusfisk/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/angusfisk/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/Users/angusfisk/miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/angusfisk/miniforge3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-conda activate default 
- 
 # set git branch and user in prompt
 function parse_git_branch() {
     git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'
