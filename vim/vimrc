@@ -97,9 +97,9 @@ let g:tex_flavor = 'latex'
 " FILE EXPLORER (vim-floaterm + ranger)
 " =============================================================================
 
-command! Ex FloatermNew --wintype=split --opener=edit ranger
-command! Sex FloatermNew --wintype=split --opener=split ranger
-command! Vex FloatermNew --wintype=vsplit --opener=vsplit ranger
+command! Ex  FloatermNew --wintype=float --opener=edit ranger
+command! Sex  split | FloatermNew --wintype=float --opener=edit ranger
+command! Vex vsplit | FloatermNew --wintype=float --opener=edit ranger
 
 
 " =============================================================================
