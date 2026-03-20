@@ -33,8 +33,15 @@ link "$REPO_DIR/vim/vimrc" "$HOME/.vimrc"
 
 # Kitty
 link "$REPO_DIR/kitty/kitty.conf"    "$HOME/.config/kitty/kitty.conf"
+link "$REPO_DIR/kitty/theme.conf"    "$HOME/.config/kitty/theme.conf"
 link "$REPO_DIR/kitty/get_layout.py" "$HOME/.config/kitty/get_layout.py"
 link "$REPO_DIR/kitty/pass_keys.py"  "$HOME/.config/kitty/pass_keys.py"
+
+# Tmux
+link "$REPO_DIR/tmux.conf" "$HOME/.tmux.conf"
+
+# Ranger
+link "$REPO_DIR/ranger/rifle.conf" "$HOME/.config/ranger/rifle.conf"
 
 echo ""
 echo "Done. All configs symlinked."
