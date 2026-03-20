@@ -98,26 +98,9 @@ let g:tex_flavor = 'latex'
 " =============================================================================
 
 " Open ranger in a float pinned to the top-left of the current split
-function! RangerHere(split_cmd)
-    if a:split_cmd != ''
-        execute a:split_cmd
-    endif
-    let [row, col] = win_screenpos(winnr())
-    let width      = winwidth(winnr())
-    let height     = winheight(winnr())
-    let row_frac   = printf('%.2f', (row - 1.0 + height / 2.0) / &lines)
-    let col_frac   = printf('%.2f', (col - 1.0 + width  / 2.0) / &columns)
-    execute 'FloatermNew --wintype=float --opener=edit'
-        \ . ' --row='    . row_frac
-        \ . ' --col='    . col_frac
-        \ . ' --width='  . width
-        \ . ' --height=' . height
-        \ . ' ranger'
-endfunction
-
-command! Ex  call RangerHere('')
-command! Sex  call RangerHere('split')
-command! Vex call RangerHere('vsplit')
+command! Ex  FloatermNew --wintype=float --opener=edit --position=auto ranger
+command! Sex  split | FloatermNew --wintype=float --opener=edit --position=auto ranger
+command! Vex vsplit | FloatermNew --wintype=float --opener=edit --position=auto ranger
 
 
 " =============================================================================
