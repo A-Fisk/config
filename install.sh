@@ -43,5 +43,8 @@ link "$REPO_DIR/tmux.conf" "$HOME/.tmux.conf"
 # Ranger
 link "$REPO_DIR/ranger/rifle.conf" "$HOME/.config/ranger/rifle.conf"
 
+# Scripts
+link "$REPO_DIR/bin/pandocx" "$HOME/.local/bin/pandocx"
+
 echo ""
 echo "Done. All configs symlinked."

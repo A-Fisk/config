@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Convert a markdown file to docx using pandoc
+set -e
+
+input="$1"
+output="${input%.md}.docx"
+pandoc "$input" -o "$output"
+echo "Created: $output"
