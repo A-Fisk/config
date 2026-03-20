@@ -25,6 +25,9 @@ link() {
   echo "Linked: $dest -> $src"
 }
 
+# Zsh
+link "$REPO_DIR/zshrc" "$HOME/.zshrc"
+
 # Vim
 link "$REPO_DIR/vim/vimrc" "$HOME/.vimrc"
 
