@@ -105,8 +105,8 @@ function! RangerHere(split_cmd)
     let [row, col] = win_screenpos(winnr())
     let width      = winwidth(winnr())
     let height     = winheight(winnr())
-    let row_frac   = printf('%.2f', (row - 1.0) / &lines)
-    let col_frac   = printf('%.2f', (col - 1.0) / &columns)
+    let row_frac   = printf('%.2f', (row - 1.0 + height / 2.0) / &lines)
+    let col_frac   = printf('%.2f', (col - 1.0 + width  / 2.0) / &columns)
     execute 'FloatermNew --wintype=float --opener=edit'
         \ . ' --row='    . row_frac
         \ . ' --col='    . col_frac
