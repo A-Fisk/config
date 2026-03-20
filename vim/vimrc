@@ -98,8 +98,8 @@ let g:tex_flavor = 'latex'
 " =============================================================================
 
 command! Ex  FloatermNew --wintype=float --opener=edit ranger
-command! Sex  split | FloatermNew --wintype=float --opener=edit ranger
-command! Vex vsplit | FloatermNew --wintype=float --opener=edit ranger
+command! Sex  split | FloatermNew --wintype=split --opener=edit ranger
+command! Vex vsplit | FloatermNew --wintype=split --opener=edit ranger
 
 
 " =============================================================================
