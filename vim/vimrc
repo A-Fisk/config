@@ -99,8 +99,8 @@ let g:tex_flavor = 'latex'
 
 " Open ranger in a float pinned to the top-left of the current split
 command! Ex  FloatermNew --wintype=float --opener=edit --position=auto ranger
-command! Sex  split | FloatermNew --wintype=float --opener=edit --position=auto ranger
-command! Vex vsplit | FloatermNew --wintype=float --opener=edit --position=auto ranger
+command! Sex  split | FloatermNew --wintype=split --opener=edit ranger
+command! Vex vsplit | FloatermNew --wintype=vsplit --opener=edit ranger
 
 
 " =============================================================================
