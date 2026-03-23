@@ -47,6 +47,8 @@ export OLLAMA_API_BASE=http://127.0.0.1:11434
 export ANTHROPIC_API_KEY=$(pass apis/anthropic)
 export GEMINI_API_KEY=$(pass apis/gemini)
 export OPENAI_API_KEY=$(pass apis/openai)
+export JIRA_API_TOKEN=$(pass apis/jira)
+export EVENTBRITE_TOKEN=$(pass apis/eventbrite)
 
 
 # =============================================================================
