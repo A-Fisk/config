@@ -28,7 +28,7 @@ Plug 'davidhalter/jedi-vim'
 
 " Navigation / UI
 Plug 'tpope/vim-surround'
-Plug 'knubie/vim-kitty-navigator', {'do': 'cp ./*.py ~/.config/kitty/'}
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'voldikss/vim-floaterm'
 Plug 'morhetz/gruvbox'
 
