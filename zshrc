@@ -56,6 +56,7 @@ export EVENTBRITE_TOKEN=$(pass apis/eventbrite)
 # =============================================================================
 
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519_usyd
 
 
 # =============================================================================
@@ -67,6 +68,25 @@ alias pwcopy='pwd | pbcopy'
 alias gdrive="cd $HOME/Documents/Google_drive"
 alias idea="vim $HOME/Documents/github_repos/GTD/idea_capture.md"
 alias gtd="uv run python $HOME/Documents/github_repos/GTD/gtd_viewer.py -f $HOME/Documents/github_repos/GTD/idea_capture.md"
+
+
+# =============================================================================
+# FUNCTIONS
+# =============================================================================
+
+function claude-copilot() {
+  # Check if copilot-api tmux session already exists
+  if ! tmux has-session -t copilot-api 2>/dev/null; then
+    echo "Starting copilot-api in background tmux session..."
+    tmux new-session -d -s copilot-api 'copilot-api start --claude-code'
+    # Give the server a moment to start
+    sleep 2
+  fi
+
+  ANTHROPIC_BASE_URL="http://localhost:4141" \
+  ANTHROPIC_AUTH_TOKEN="copilot" \
+  claude "$@"
+}
 
 
 # =============================================================================

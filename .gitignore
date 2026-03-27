@@ -1,5 +1,8 @@
 # Machine-local secrets (for future zshrc support)
 .zshrc.local
 
+# Claude project-local settings (global settings are in claude/ directory)
+.claude/
+
 # macOS
 .DS_Store

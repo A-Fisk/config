@@ -1,0 +1,7 @@
+# npm global packages
+# Install with: npm install -g $(grep -v '^#' globals.txt | grep -v '^$' | tr '\n' ' ')
+
+@anthropic-ai/sandbox-runtime
+@pnp/cli-microsoft365
+@suenot/aicommit
+ai-commit
