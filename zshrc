@@ -67,7 +67,7 @@ alias restart="source ~/.zshrc"
 alias pwcopy='pwd | pbcopy'
 alias gdrive="cd $HOME/Documents/Google_drive"
 alias idea="vim $HOME/Documents/github_repos/GTD/idea_capture.md"
-alias gtd="uv run python $HOME/Documents/github_repos/GTD/gtd_viewer.py -f $HOME/Documents/github_repos/GTD/idea_capture.md"
+alias gtd="cd $HOME/Documents/github_repos/GTD/ && uv run gtd_viewer.py -f $HOME/Documents/github_repos/GTD/idea_capture.md"
 
 
 # =============================================================================
@@ -109,3 +109,5 @@ COLOR_DIR=$'%F{197}'
 COLOR_GIT=$'%F{39}'
 setopt PROMPT_SUBST
 export PROMPT='${COLOR_USR}$(git_current_user_email) ${COLOR_DIR}/%1d ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF} $ '
+export PATH=$PATH:/Users/afis0660/.runai/bin
+source <(/Users/afis0660/.runai/bin/runai completion zsh)
