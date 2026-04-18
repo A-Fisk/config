@@ -89,3 +89,8 @@ COLOR_DIR=$'%F{197}'
 COLOR_GIT=$'%F{39}'
 setopt PROMPT_SUBST
 export PROMPT='${COLOR_USR}$(git_current_user_email) ${COLOR_DIR}/%1d ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF} $ '
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/angusfisk/.lmstudio/bin"
+# End of LM Studio CLI section
+
