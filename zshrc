@@ -39,6 +39,13 @@ export SASL_PATH="$(brew --prefix cyrus-sasl)/lib/sasl2"
 # Ollama
 export OLLAMA_API_BASE=http://127.0.0.1:11434
 
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/angusfisk/.lmstudio/bin"
+# End of LM Studio CLI section
+
+# Runai
+export PATH=$PATH:/Users/afis0660/.runai/bin
+source <(/Users/afis0660/.runai/bin/runai completion zsh)
 
 # =============================================================================
 # API KEYS
@@ -56,6 +63,7 @@ export EVENTBRITE_TOKEN=$(pass apis/eventbrite)
 # =============================================================================
 
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519_usyd
 
 
 # =============================================================================
@@ -66,7 +74,26 @@ alias restart="source ~/.zshrc"
 alias pwcopy='pwd | pbcopy'
 alias gdrive="cd $HOME/Documents/Google_drive"
 alias idea="vim $HOME/Documents/github_repos/GTD/idea_capture.md"
-alias gtd="uv run python $HOME/Documents/github_repos/GTD/gtd_viewer.py -f $HOME/Documents/github_repos/GTD/idea_capture.md"
+alias gtd="cd $HOME/Documents/github_repos/GTD/ && uv run gtd_viewer.py -f $HOME/Documents/github_repos/GTD/idea_capture.md"
+
+
+# =============================================================================
+# FUNCTIONS
+# =============================================================================
+
+function claude-copilot() {
+  # Check if copilot-api tmux session already exists
+  if ! tmux has-session -t copilot-api 2>/dev/null; then
+    echo "Starting copilot-api in background tmux session..."
+    tmux new-session -d -s copilot-api 'copilot-api start --claude-code'
+    # Give the server a moment to start
+    sleep 2
+  fi
+
+  ANTHROPIC_BASE_URL="http://localhost:4141" \
+  ANTHROPIC_AUTH_TOKEN="copilot" \
+  claude "$@"
+}
 
 
 # =============================================================================
@@ -90,7 +117,5 @@ COLOR_GIT=$'%F{39}'
 setopt PROMPT_SUBST
 export PROMPT='${COLOR_USR}$(git_current_user_email) ${COLOR_DIR}/%1d ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF} $ '
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/angusfisk/.lmstudio/bin"
-# End of LM Studio CLI section
+
 

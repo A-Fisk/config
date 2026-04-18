@@ -1,0 +1,80 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh issue view *)",
+      "Bash(gh pr view *)"
+    ],
+    "deny": [
+      "Read(~/.gnupg/**)",
+      "Bash(brew uninstall *)",
+      "Bash(brew remove *)",
+      "Bash(brew autoremove *)",
+      "Bash(brew cleanup *)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "network": {
+        "allowedDomains": [
+            "api.anthropic.com"
+        ]
+    },
+    "filesystem": {
+      "allowWrite": ["~/.cache/uv"],
+      "denyRead": ["~/.gnupg/private-keys-v1.d", "~/.gnupg/secring.gpg"],
+      "denyWrite": [
+      "~/.ssh",
+      "~/.aws",
+      "~/.gnupg",
+      "~/.gitconfig",
+      "~/.git-credentials",
+      "~/.npmrc"
+      ]
+    }
+  },
+  "enabledPlugins": {
+    "planning-with-files@planning-with-files": true
+  },
+  "alwaysThinkingEnabled": true,
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$HOME/.claude/hooks/gsd-check-update.js\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash|Edit|Write|MultiEdit|Agent|Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$HOME/.claude/hooks/gsd-context-monitor.js\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$HOME/.claude/hooks/gsd-prompt-guard.js\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node \"$HOME/.claude/hooks/gsd-statusline.js\""
+  }
+}

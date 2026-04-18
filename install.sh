@@ -42,9 +42,24 @@ link "$REPO_DIR/tmux.conf" "$HOME/.tmux.conf"
 
 # Ranger
 link "$REPO_DIR/ranger/rifle.conf" "$HOME/.config/ranger/rifle.conf"
+link "$REPO_DIR/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
+link "$REPO_DIR/ranger/commands.py" "$HOME/.config/ranger/commands.py"
+link "$REPO_DIR/ranger/scope.sh" "$HOME/.config/ranger/scope.sh"
 
 # Scripts
 link "$REPO_DIR/bin/pandocx" "$HOME/.local/bin/pandocx"
+
+# Claude global settings and hooks
+link "$REPO_DIR/claude/settings.json" "$HOME/.claude/settings.json"
+link "$REPO_DIR/claude/hooks/gsd-check-update.js" "$HOME/.claude/hooks/gsd-check-update.js"
+link "$REPO_DIR/claude/hooks/gsd-context-monitor.js" "$HOME/.claude/hooks/gsd-context-monitor.js"
+link "$REPO_DIR/claude/hooks/gsd-prompt-guard.js" "$HOME/.claude/hooks/gsd-prompt-guard.js"
+link "$REPO_DIR/claude/hooks/gsd-statusline.js" "$HOME/.claude/hooks/gsd-statusline.js"
+link "$REPO_DIR/claude/hooks/gsd-workflow-guard.js" "$HOME/.claude/hooks/gsd-workflow-guard.js"
+
+# Git global configs
+link "$REPO_DIR/gitignore" "$HOME/.gitignore"
+link "$REPO_DIR/git/ignore" "$HOME/.config/git/ignore"
 
 echo ""
 echo "Done. All configs symlinked."
