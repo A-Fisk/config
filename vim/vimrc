@@ -97,9 +97,15 @@ let g:tex_flavor = 'latex'
 " FILE EXPLORER (vim-floaterm + ranger)
 " =============================================================================
 
-" Open ranger in a float pinned to the top-left of the current split
-command! Ex  FloatermNew --wintype=float --opener=edit --position=top --height=0.99 --width=0.99 ranger
-command! Sex  split | FloatermNew --wintype=split --position=belowright --height=0.5 --width=0.99 --opener=edit ranger
+" Open ranger in a float sized and positioned to the current split
+function! OpenRanger()
+  let [row, col] = win_screenpos(0)
+  let w = winwidth(0)
+  let h = winheight(0)
+  execute printf('FloatermNew --wintype=float --opener=edit --position=topleft --row=%d --col=%d --height=%d --width=%d ranger', row - 1, col - 1, h, w)
+endfunction
+command! Ex call OpenRanger()
+command! Sex  split | FloatermNew --wintype=split --position=belowright --height=0.5 --width=0.5 --opener=edit ranger
 command! Vex vsplit | FloatermNew --wintype=vsplit --position=belowright --height=0.99 --width=0.5 --opener=edit ranger
 
 
