@@ -151,7 +151,12 @@ nnoremap <leader>md :call AddMarkdownBreaks()<CR>
 command! Vres vertical resize 80
 
 " Insert date
-nnoremap <leader>td a<C-R>=strftime('%Y-%m-%d')<CR><Esc>
+nnoremap <leader>td a## <C-R>=strftime('%Y-%m-%d')<CR><Esc>
+
+" Insert checklists
+nnoremap <leader>ex I- []<Esc>
+nnoremap <leader>fx I- [x]<Esc>
+
 
 " Prevent _ reassign in R files
 let R_assign = 0
