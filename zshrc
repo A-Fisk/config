@@ -51,11 +51,17 @@ source <(/Users/afis0660/.runai/bin/runai completion zsh)
 # API KEYS
 # =============================================================================
 
-export ANTHROPIC_API_KEY=$(pass apis/anthropic)
-export GEMINI_API_KEY=$(pass apis/gemini)
-export OPENAI_API_KEY=$(pass apis/openai)
 export JIRA_API_TOKEN=$(pass apis/jira)
 export EVENTBRITE_TOKEN=$(pass apis/eventbrite)
+
+function set() {
+  case "$1" in
+    anthropic) export ANTHROPIC_API_KEY=$(pass apis/anthropic) ;;
+    gemini)    export GEMINI_API_KEY=$(pass apis/gemini) ;;
+    openai)    export OPENAI_API_KEY=$(pass apis/openai) ;;
+    *)         builtin set "$@" ;;
+  esac
+}
 
 
 # =============================================================================
