@@ -10,33 +10,9 @@
       "Bash(brew remove *)",
       "Bash(brew autoremove *)",
       "Bash(brew cleanup *)"
-    ]
+    ],
+    "defaultMode": "default"
   },
-  "sandbox": {
-    "enabled": true,
-    "autoAllowBashIfSandboxed": true,
-    "network": {
-        "allowedDomains": [
-            "api.anthropic.com"
-        ]
-    },
-    "filesystem": {
-      "allowWrite": ["~/.cache/uv"],
-      "denyRead": ["~/.gnupg/private-keys-v1.d", "~/.gnupg/secring.gpg"],
-      "denyWrite": [
-      "~/.ssh",
-      "~/.aws",
-      "~/.gnupg",
-      "~/.gitconfig",
-      "~/.git-credentials",
-      "~/.npmrc"
-      ]
-    }
-  },
-  "enabledPlugins": {
-    "planning-with-files@planning-with-files": true
-  },
-  "alwaysThinkingEnabled": true,
   "hooks": {
     "SessionStart": [
       {
@@ -76,5 +52,38 @@
   "statusLine": {
     "type": "command",
     "command": "node \"$HOME/.claude/hooks/gsd-statusline.js\""
-  }
+  },
+  "enabledPlugins": {
+    "planning-with-files@planning-with-files": true
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "network": {
+      "allowedDomains": [
+        "api.anthropic.com"
+      ]
+    },
+    "filesystem": {
+      "allowWrite": [
+        "~/.cache/uv"
+      ],
+      "denyWrite": [
+        "~/.ssh",
+        "~/.aws",
+        "~/.gnupg",
+        "~/.gitconfig",
+        "~/.git-credentials",
+        "~/.npmrc"
+      ],
+      "denyRead": [
+        "~/.gnupg/private-keys-v1.d",
+        "~/.gnupg/secring.gpg"
+      ]
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "tui": "default",
+  "theme": "dark-daltonized",
+  "editorMode": "vim"
 }
