@@ -54,11 +54,13 @@ set number
 set linebreak
 syntax on
 set cc=81
+set showtabline=2
 
 " set theme to match
 colorscheme dracula
 hi Normal guibg=NONE ctermbg=NONE
 hi NonText guibg=NONE ctermbg=NONE
+hi mkdBlockquote guibg=NONE ctermbg=NONE
 
 " Cursor shape per mode (1=blink block, 2=solid block, 5=blink bar, 6=solid bar)
 let &t_SI .= "\e[5 q"   " Insert  → blinking bar
