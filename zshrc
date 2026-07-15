@@ -83,6 +83,7 @@ alias idea="vim $HOME/Documents/github_repos/GTD/idea_capture.md"
 alias gtd="cd $HOME/Documents/github_repos/GTD/ && uv run gtd_viewer.py -f $HOME/Documents/github_repos/GTD/idea_capture.md"
 alias gai="git add ."
 alias gc="git commit"
+alias gp="git pull"
 
 
 # =============================================================================
