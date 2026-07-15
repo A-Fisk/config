@@ -86,4 +86,5 @@
   "tui": "default",
   "theme": "dark-daltonized",
   "editorMode": "vim"
+  "tui": "fullscreen"
 }
