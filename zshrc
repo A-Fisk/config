@@ -1,5 +1,13 @@
 
 # =============================================================================
+# COMPLETION
+# =============================================================================
+
+autoload -Uz compinit
+compinit
+
+
+# =============================================================================
 # INPUT
 # =============================================================================
 
@@ -80,9 +88,10 @@ alias restart="source ~/.zshrc"
 alias pwcopy='pwd | pbcopy'
 alias gdrive="cd $HOME/Documents/Google_drive"
 alias idea="vim $HOME/Documents/github_repos/GTD/idea_capture.md"
-alias gtd="cd $HOME/Documents/github_repos/GTD/ && uv run gtd_viewer.py -f $HOME/Documents/github_repos/GTD/idea_capture.md"
+alias gtd="cd $HOME/Documents/github_repos/GTD/ && git pull && uv run gtd_viewer.py -f $HOME/Documents/github_repos/GTD/idea_capture.md --no-ai"
 alias gai="git add ."
 alias gc="git commit"
+alias gac="git add . && git commit"
 alias gp="git pull"
 
 

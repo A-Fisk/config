@@ -151,7 +151,7 @@ nnoremap <leader>td a## <C-R>=strftime('%Y-%m-%d')<CR><Esc>
 
 " Insert checklists
 nnoremap <leader>ex I- []<Esc>
-nnoremap <leader>fx I- [x]<Esc>
+nnoremap <leader>fx I- [x]<Esc>lx
 
 
 " Prevent _ reassign in R files
@@ -173,3 +173,5 @@ function! AddMarkdownBreaks()
         normal! j
     endwhile
 endfunction
+
+
