@@ -131,6 +131,9 @@ noremap cpx "*d
 " Copy file path to clipboard
 nnoremap <leader>yp :! realpath % \| pbcopy<CR>
 
+" Fuzzy-search open buffers
+nnoremap <leader>bb :Buffers<CR>
+
 " Remove trailing whitespace
 nnoremap <leader>el :%s/\s\+$//<CR>
 
