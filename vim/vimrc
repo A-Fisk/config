@@ -104,6 +104,10 @@ command! Ex FloatermNew --wintype=vsplit --position=belowright --opener=edit ran
 command! Sex  split | FloatermNew --wintype=split --position=belowright --height=0.5 --width=0.5 --opener=edit ranger
 command! Vex vsplit | FloatermNew --wintype=vsplit --position=belowright --height=0.99 --width=0.5 --opener=edit ranger
 
+nnoremap <leader>xe :Ex<CR>
+nnoremap <leader>xs :Sex<CR>
+nnoremap <leader>xv :Vex<CR>
+
 
 " =============================================================================
 " PLUGIN SETTINGS
