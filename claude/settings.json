@@ -54,7 +54,22 @@
     "command": "node \"$HOME/.claude/hooks/gsd-statusline.js\""
   },
   "enabledPlugins": {
-    "planning-with-files@planning-with-files": true
+    "planning-with-files@planning-with-files": true,
+    "bib-audit@isaaccorley-skills": true
+  },
+  "extraKnownMarketplaces": {
+    "isaaccorley-skills": {
+      "source": {
+        "source": "github",
+        "repo": "isaaccorley/skills"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    }
   },
   "sandbox": {
     "enabled": true,
