@@ -35,6 +35,8 @@ symlinks are always up to date.
 | kitty/theme.conf                   | ~/.config/kitty/theme.conf         |
 | tmux.conf                          | ~/.tmux.conf                       |
 | zshrc                              | ~/.zshrc                           |
+| zshenv                             | ~/.zshenv                          |
+| zprofile                           | ~/.zprofile                        |
 | ranger/rifle.conf                  | ~/.config/ranger/rifle.conf        |
 | ranger/rc.conf                     | ~/.config/ranger/rc.conf           |
 | ranger/commands.py                 | ~/.config/ranger/commands.py       |

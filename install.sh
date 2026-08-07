@@ -27,6 +27,8 @@ link() {
 
 # Zsh
 link "$REPO_DIR/zshrc" "$HOME/.zshrc"
+link "$REPO_DIR/zshenv" "$HOME/.zshenv"
+link "$REPO_DIR/zprofile" "$HOME/.zprofile"
 
 # Vim
 link "$REPO_DIR/vim/vimrc" "$HOME/.vimrc"
