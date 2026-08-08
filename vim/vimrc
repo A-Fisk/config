@@ -54,11 +54,13 @@ set number
 set linebreak
 syntax on
 set cc=81
+set showtabline=2
 
 " set theme to match
 colorscheme dracula
 hi Normal guibg=NONE ctermbg=NONE
 hi NonText guibg=NONE ctermbg=NONE
+hi mkdBlockquote guibg=NONE ctermbg=NONE
 
 " Cursor shape per mode (1=blink block, 2=solid block, 5=blink bar, 6=solid bar)
 let &t_SI .= "\e[5 q"   " Insert  → blinking bar
@@ -98,9 +100,13 @@ let g:tex_flavor = 'latex'
 " =============================================================================
 
 " Open ranger in a float sized and positioned to the current split
-command! Ex FloatermNew --wintype=split --position=belowright --height=0.99 --width=0.5 --opener=edit ranger
-command! Sex  split | FloatermNew --wintype=split --position=belowright --height=0.99 --width=0.5 --opener=edit ranger
+command! Ex FloatermNew --wintype=vsplit --position=belowright --opener=edit ranger
+command! Sex  split | FloatermNew --wintype=split --position=belowright --height=0.5 --width=0.5 --opener=edit ranger
 command! Vex vsplit | FloatermNew --wintype=vsplit --position=belowright --height=0.99 --width=0.5 --opener=edit ranger
+
+nnoremap <leader>xe :Ex<CR>
+nnoremap <leader>xs :Sex<CR>
+nnoremap <leader>xv :Vex<CR>
 
 
 " =============================================================================
@@ -129,6 +135,9 @@ noremap cpx "*d
 " Copy file path to clipboard
 nnoremap <leader>yp :! realpath % \| pbcopy<CR>
 
+" Fuzzy-search open buffers
+nnoremap <leader>bb :Buffers<CR>
+
 " Remove trailing whitespace
 nnoremap <leader>el :%s/\s\+$//<CR>
 
@@ -149,7 +158,7 @@ nnoremap <leader>td a## <C-R>=strftime('%Y-%m-%d')<CR><Esc>
 
 " Insert checklists
 nnoremap <leader>ex I- []<Esc>
-nnoremap <leader>fx I- [x]<Esc>
+nnoremap <leader>fx I- [x]<Esc>lx
 
 
 " Prevent _ reassign in R files
@@ -171,3 +180,5 @@ function! AddMarkdownBreaks()
         normal! j
     endwhile
 endfunction
+
+
