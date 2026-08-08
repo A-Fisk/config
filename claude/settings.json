@@ -82,5 +82,5 @@
     }
   },
   "alwaysThinkingEnabled": true,
-  "tui": "fullscreen"
+  "tui": "default"
 }
