@@ -1,20 +1,41 @@
 #!/usr/bin/env bash
-# bootstrap.sh - Install packages from Brewfile and npm/globals.txt.
+# bootstrap.sh - Install packages from Brewfile/apt/packages.txt and npm/globals.txt.
 # Run once on a new machine after cloning, then re-run whenever the lists change.
 
 set -e
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# ── Homebrew ──────────────────────────────────────────────────────────────────
+# ── OS packages ───────────────────────────────────────────────────────────────
 
-if ! command -v brew &>/dev/null; then
-  echo "Homebrew not found. Install it from https://brew.sh then re-run this script."
-  exit 1
-fi
+case "$(uname -s)" in
+  Darwin)
+    if ! command -v brew &>/dev/null; then
+      echo "Homebrew not found. Install it from https://brew.sh then re-run this script."
+      exit 1
+    fi
 
-echo "==> Installing Homebrew packages from Brewfile..."
-brew bundle --file="$REPO_DIR/Brewfile"
+    echo "==> Installing Homebrew packages from Brewfile..."
+    brew bundle --file="$REPO_DIR/Brewfile"
+    ;;
+  Linux)
+    if ! command -v apt-get &>/dev/null; then
+      echo "apt-get not found — skipping OS package install. Install packages from apt/packages.txt manually."
+    else
+      echo "==> Installing apt packages from apt/packages.txt..."
+      PACKAGES_FILE="$REPO_DIR/apt/packages.txt"
+      packages=$(grep -v '^#' "$PACKAGES_FILE" | grep -v '^$')
+
+      if [ -n "$packages" ]; then
+        sudo apt-get update
+        echo "$packages" | xargs sudo apt-get install -y
+      fi
+    fi
+    ;;
+  *)
+    echo "Unrecognized OS ($(uname -s)) — skipping OS package install."
+    ;;
+esac
 
 # ── npm globals ───────────────────────────────────────────────────────────────
 

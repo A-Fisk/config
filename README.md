@@ -7,13 +7,18 @@ Dotfiles for kitty and vim, synced across machines via git.
 ```bash
 git clone <repo-url> ~/Documents/github_repos/config
 cd ~/Documents/github_repos/config
-chmod +x install.sh
-./install.sh
+chmod +x install.sh bootstrap.sh
+./bootstrap.sh
 ```
 
 `install.sh` creates symlinks from the standard config locations to the files in
 this repo. Any edits you make to `~/.vimrc`, `~/.config/kitty/kitty.conf`, etc.
 are immediately reflected in the repo — just `git add` and `git commit`.
+
+`bootstrap.sh` installs OS packages before symlinking: on macOS it runs
+`brew bundle` against `Brewfile`; on Linux (including WSL) it runs `apt-get install`
+against `apt/packages.txt`, which currently just lists `ranger`. Add more package
+names to `apt/packages.txt` as needed for Linux/WSL machines.
 
 ## Syncing changes to another machine
 
