@@ -1,0 +1,4 @@
+# uv tools for Linux/WSL machines, installed by bootstrap.sh via `uv tool install`.
+# macOS installs these through the Brewfile's `uv "..."` entries instead.
+# One package name per line; lines starting with # are ignored.
+notedown

@@ -37,6 +37,22 @@ case "$(uname -s)" in
     ;;
 esac
 
+# ── uv tools (Linux only — macOS gets these via the Brewfile's `uv "..."` entries) ─
+
+if [ "$(uname -s)" = "Linux" ]; then
+  if ! command -v uv &>/dev/null; then
+    echo "uv not found — skipping uv tool installs. Install it (e.g. 'pip3 install --user uv') then re-run this script."
+  else
+    TOOLS_FILE="$REPO_DIR/uv/tools.txt"
+    tools=$(grep -v '^#' "$TOOLS_FILE" | grep -v '^$')
+
+    if [ -n "$tools" ]; then
+      echo "==> Installing uv tools from uv/tools.txt..."
+      echo "$tools" | xargs -n1 uv tool install
+    fi
+  fi
+fi
+
 # ── npm globals ───────────────────────────────────────────────────────────────
 
 if ! command -v npm &>/dev/null; then

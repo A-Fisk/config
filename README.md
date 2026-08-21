@@ -20,6 +20,12 @@ are immediately reflected in the repo — just `git add` and `git commit`.
 against `apt/packages.txt`, which currently just lists `ranger`. Add more package
 names to `apt/packages.txt` as needed for Linux/WSL machines.
 
+On Linux it also installs `uv/tools.txt` via `uv tool install` (currently just
+`notedown`, required by the `vimpyter.vim` plugin) — on macOS these same tools come
+from the Brewfile's `uv "..."` entries instead. `uv` itself isn't auto-installed;
+if it's missing, install it first (e.g. `pip3 install --user uv`) and re-run
+`bootstrap.sh`.
+
 ## Syncing changes to another machine
 
 ```bash
