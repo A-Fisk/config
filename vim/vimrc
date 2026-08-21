@@ -26,6 +26,9 @@ Plug 'jalvesaq/Nvim-R'
 Plug 'nvie/vim-flake8'
 Plug 'davidhalter/jedi-vim'
 
+" R execution
+Plug 'jpalardy/vim-slime'
+
 " Navigation / UI
 Plug 'tpope/vim-surround'
 Plug 'christoomey/vim-tmux-navigator'
@@ -163,9 +166,43 @@ nnoremap <leader>fx I- [x]<Esc>lx
 " Prevent _ reassign in R files
 let R_assign = 0
 
+" vim-slime: send code to a tmux pane (radian) instead of screen/vim-terminal
+let g:slime_target = "tmux"
+let g:slime_bracketed_paste = 1     " avoids R auto-indent mangling multi-line sends
+let g:slime_dont_ask_default = 1    " reuse the pane below instead of prompting every send
+let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0, "default"), "target_pane": "{last}"}
+
+" vim-slime: send the ``` chunk under the cursor (quarto/rmarkdown code blocks
+" double as slime "cells" since both the opening and closing fence match this
+" delimiter, so send_cell() lands on exactly the lines between them)
+autocmd BufNewFile,BufRead *.qmd,*.Rmd,*.rmd let b:slime_cell_delimiter = '^```'
+nmap <leader>sc <Plug>SlimeSendCell
+
+" vim-slime: send only the code inside ``` fences within a visual selection
+" spanning prose + multiple chunks (e.g. selecting several headed sections)
+xnoremap <leader>sc :call SlimeSendChunksInRange()<CR>
+
 " =============================================================================
 " FUNCTIONS
 " =============================================================================
+
+" Strip prose and fence lines from a range, keeping only code inside ``` blocks,
+" then send the result to the slime target (used by the visual <leader>sc map)
+function! SlimeSendChunksInRange() range
+    let in_chunk = 0
+    let out = []
+    for l in getline(a:firstline, a:lastline)
+        if l =~# '^```'
+            let in_chunk = !in_chunk
+        elseif in_chunk
+            call add(out, l)
+        endif
+    endfor
+    if !empty(out)
+        call slime#send(join(out, "\n") . "\n")
+    endif
+    call cursor(line("'>"), col("'>"))
+endfunction
 
 " Add '  ' to end of lines that precede a list item, for correct MD rendering
 function! AddMarkdownBreaks()
