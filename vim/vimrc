@@ -159,8 +159,8 @@ command! Vres vertical resize 80
 nnoremap <leader>td a## <C-R>=strftime('%Y-%m-%d')<CR><Esc>
 
 " Insert checklists
-nnoremap <leader>ex I- []<Esc>
-nnoremap <leader>fx I- [x]<Esc>lx
+nnoremap <leader>ex :s/^\(\s*\)\%(-\s\+\[[ x]\]\s*\|-\s\+\)\?/\1- [ ] /<CR>
+nnoremap <leader>fx :s/^\(\s*\)\%(-\s\+\[[ x]\]\s*\|-\s\+\)\?/\1- [x] /<CR>
 
 
 " Prevent _ reassign in R files
