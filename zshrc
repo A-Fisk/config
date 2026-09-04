@@ -93,6 +93,7 @@ alias gai="git add ."
 alias gc="git commit"
 alias gac="git add . && git commit"
 alias gp="git pull"
+alias event_nos="bash /Users/afis0660/Documents/github_repos/eventbrite_export/run_genai_events.sh"
 
 
 # =============================================================================
@@ -136,4 +137,9 @@ setopt PROMPT_SUBST
 export PROMPT='${COLOR_USR}$(git_current_user_email) ${COLOR_DIR}/%1d ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF} $ '
 
 
+
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/afis0660/.lmstudio/bin"
+# End of LM Studio CLI section
 

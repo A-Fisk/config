@@ -100,5 +100,6 @@
   "alwaysThinkingEnabled": true,
   "tui": "default",
   "theme": "dark-daltonized",
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "effortLevel": "medium"
 }
