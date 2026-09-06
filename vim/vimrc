@@ -104,7 +104,7 @@ let g:tex_flavor = 'latex'
 
 " Open ranger in a float sized and positioned to the current split
 command! Ex FloatermNew --wintype=vsplit --position=belowright --opener=edit ranger
-command! Sex  split | FloatermNew --wintype=split --position=belowright --height=0.5 --width=0.5 --opener=edit ranger
+command! Sex  split | FloatermNew --wintype=vsplit --position=belowright --height=0.99 --width=0.5 --opener=edit ranger
 command! Vex vsplit | FloatermNew --wintype=vsplit --position=belowright --height=0.99 --width=0.5 --opener=edit ranger
 
 nnoremap <leader>x :Ex<CR>
@@ -161,7 +161,7 @@ nnoremap <leader>td a## <C-R>=strftime('%Y-%m-%d')<CR><Esc>
 " Insert checklists
 nnoremap <leader>ex :s/^\(\s*\)\%(-\s\+\[[ x]\]\s*\|-\s\+\)\?/\1- [ ] /<CR>
 nnoremap <leader>fx :s/^\(\s*\)\%(-\s\+\[[ x]\]\s*\|-\s\+\)\?/\1- [x] /<CR>
-
+- [ ] soemthing text here 
 
 " Prevent _ reassign in R files
 let R_assign = 0
