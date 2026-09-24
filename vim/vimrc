@@ -165,6 +165,7 @@ nnoremap <leader>td a## <C-R>=strftime('%Y-%m-%d')<CR><Esc>
 " Insert checklists
 nnoremap <leader>ex :s/^\(\s*\)\%(-\s\+\[[ x]\]\s*\|-\s\+\)\?/\1- [ ] /<CR>
 nnoremap <leader>fx :s/^\(\s*\)\%(-\s\+\[[ x]\]\s*\|-\s\+\)\?/\1- [x] /<CR>
+nnoremap <leader>ff :%s/- \[ \]/- [x]/gc <CR>
 
 " Preview markdown
 nnoremap <leader>pp :PrevimOpen<CR>
