@@ -90,6 +90,9 @@ set autoindent
 " Text width
 set textwidth=79
 
+" Markdown: soft wrap, no hard breaks
+autocmd FileType markdown,markdown.pandoc setlocal textwidth=0 wrap linebreak formatoptions-=t
+
 " Splits open to the right and below
 set splitright
 set splitbelow
