@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import random
 import re
-import sys
+import shutil
+import textwrap
 from pathlib import Path
 
 FEEDBACK_FILE = Path("/Users/afis0660/google_drive/03_General/usyd_workshop_feedback/select_feedback.md")
@@ -19,12 +20,18 @@ def main():
     quote = " ".join(quote.split())
     attribution = " ".join(attribution.split()).replace("*", "")
 
-    # Subtle ANSI styling: dimmed quote, italicized attribution
+    # Terminal-aware width: max 76 cols, shrink if pane is narrower
+    term_cols = shutil.get_terminal_size((80, 20)).columns
+    wrap_width = max(30, min(term_cols - 4, 76))
+
+    wrapped_quote = textwrap.fill(f'"{quote}"', width=wrap_width)
+    wrapped_attr = textwrap.fill(f"— {attribution}", width=wrap_width, initial_indent="  ", subsequent_indent="    ")
+
     dim = "\033[2m"
     italic = "\033[3m"
     reset = "\033[0m"
 
-    print(f"\n{dim}\"{quote}\"{reset}\n  {italic}— {attribution}{reset}\n")
+    print(f"\n{dim}{wrapped_quote}{reset}\n{italic}{wrapped_attr}{reset}\n")
 
 if __name__ == "__main__":
     main()

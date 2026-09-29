@@ -16,9 +16,8 @@ Plug 'vim-latex/vim-latex'
 Plug 'godlygeek/tabular'
 Plug 'preservim/vim-markdown'
 
-" Markdown previous 
-Plug 'previm/previm'
-Plug 'tyru/open-browser.vim'
+" Markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
 " Notebooks
 Plug 'aaren/notedown'
@@ -173,7 +172,7 @@ nnoremap <leader>fx :s/^\(\s*\)\%(-\s\+\[[ x]\]\s*\|-\s\+\)\?/\1- [x] /<CR>
 nnoremap <leader>ff :%s/- \[ \]/- [x]/gc <CR>
 
 " Preview markdown
-nnoremap <leader>pp :PrevimOpen<CR>
+nnoremap <leader>pp <Plug>MarkdownPreviewToggle
 
 " Prevent _ reassign in R files
 let R_assign = 0
