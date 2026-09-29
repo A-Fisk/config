@@ -93,6 +93,8 @@ set textwidth=79
 autocmd FileType markdown,markdown.pandoc setlocal textwidth=0 wrap linebreak breakindent formatoptions-=t formatoptions-=a
     \ | nnoremap <buffer><expr> j v:count ? 'j' : 'gj'
     \ | nnoremap <buffer><expr> k v:count ? 'k' : 'gk'
+    \ | nnoremap <buffer><expr> $ v:count ? '$' : 'g$'
+    \ | nnoremap <buffer><expr> ^ v:count ? '^' : 'g^'
 
 " Splits open to the right and below
 set splitright
@@ -227,5 +229,12 @@ function! AddMarkdownBreaks()
         normal! j
     endwhile
 endfunction
+
+" Re-apply FileType settings when :source-ing this file, so buffer-local
+" overrides (e.g. markdown soft-wrap) aren't clobbered by globals set above
+" (e.g. textwidth=79) without being reset again
+if !empty(&filetype)
+    execute 'doautocmd FileType ' . &filetype
+endif
 
 
