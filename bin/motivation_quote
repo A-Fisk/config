@@ -34,14 +34,14 @@ def main():
     italic = "\033[3m"
     reset = "\033[0m"
 
-    print(f"\n{dim}╭{'─' * box_width}╮{reset}")
+    print(f"\n{dim}╭{'─' * box_width}╮")
     for line in quote_lines:
-        print(f"{dim}│{reset} {line.ljust(box_width - 1)}{dim}│{reset}")
-    print(f"{dim}│{' ' * box_width}│{reset}")
+        print(f"│ {line.ljust(box_width - 1)}│")
+    print(f"│{' ' * box_width}│")
     for line in attr_lines:
         padded = line.rjust(box_width - 2)
-        print(f"{dim}│{reset} {italic}{padded}{reset} {dim}│{reset}")
-    print(f"{dim}╰{'─' * box_width}╯{reset}\n")
+        print(f"│ {italic}{padded}{reset}{dim} │")
+    print(f"╰{'─' * box_width}╯{reset}\n")
 
 if __name__ == "__main__":
     main()
