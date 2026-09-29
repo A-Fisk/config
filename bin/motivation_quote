@@ -20,18 +20,28 @@ def main():
     quote = " ".join(quote.split())
     attribution = " ".join(attribution.split()).replace("*", "")
 
-    # Terminal-aware width: max 76 cols, shrink if pane is narrower
+    # Terminal-aware width: leave margin for borders and padding
     term_cols = shutil.get_terminal_size((80, 20)).columns
-    wrap_width = max(30, min(term_cols - 4, 76))
+    content_width = max(26, min(term_cols - 8, 72))
 
-    wrapped_quote = textwrap.fill(f'"{quote}"', width=wrap_width)
-    wrapped_attr = textwrap.fill(f"— {attribution}", width=wrap_width, initial_indent="  ", subsequent_indent="    ")
+    quote_lines = textwrap.wrap(f'"{quote}"', width=content_width)
+    attr_line = f"— {attribution}"
+    attr_lines = textwrap.wrap(attr_line, width=content_width)
+
+    box_width = max(len(line) for line in quote_lines + attr_lines) + 2
 
     dim = "\033[2m"
     italic = "\033[3m"
     reset = "\033[0m"
 
-    print(f"\n{dim}{wrapped_quote}{reset}\n{italic}{wrapped_attr}{reset}\n")
+    print(f"\n{dim}╭{'─' * box_width}╮{reset}")
+    for line in quote_lines:
+        print(f"{dim}│{reset} {line.ljust(box_width - 1)}{dim}│{reset}")
+    print(f"{dim}│{' ' * box_width}│{reset}")
+    for line in attr_lines:
+        padded = line.rjust(box_width - 2)
+        print(f"{dim}│{reset} {italic}{padded}{reset} {dim}│{reset}")
+    print(f"{dim}╰{'─' * box_width}╯{reset}\n")
 
 if __name__ == "__main__":
     main()
