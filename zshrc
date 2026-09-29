@@ -143,3 +143,9 @@ export PROMPT='${COLOR_USR}$(git_current_user_email) ${COLOR_DIR}/%1d ${COLOR_GI
 export PATH="$PATH:/Users/afis0660/.lmstudio/bin"
 # End of LM Studio CLI section
 
+# Show a random motivation quote on new interactive shell inside tmux
+if [[ -n "$TMUX" && -o interactive ]] && command -v motivation_quote >/dev/null 2>&1; then
+    motivation_quote
+fi
+
+

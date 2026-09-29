@@ -50,6 +50,8 @@ link "$REPO_DIR/ranger/scope.sh" "$HOME/.config/ranger/scope.sh"
 
 # Scripts
 link "$REPO_DIR/bin/pandocx" "$HOME/.local/bin/pandocx"
+link "$REPO_DIR/bin/motivation_quote" "$HOME/.local/bin/motivation_quote"
+
 
 # Claude global settings and hooks
 link "$REPO_DIR/claude/settings.json" "$HOME/.claude/settings.json"
