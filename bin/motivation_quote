@@ -40,7 +40,7 @@ def main():
     print(f"│{' ' * box_width}│")
     for line in attr_lines:
         padded = line.rjust(box_width - 2)
-        print(f"│ {italic}{padded}{reset}{dim} │")
+        print(f"{dim}│{reset} {italic}{padded}{reset} {dim}│")
     print(f"╰{'─' * box_width}╯{reset}\n")
 
 if __name__ == "__main__":
