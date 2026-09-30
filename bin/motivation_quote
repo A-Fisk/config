@@ -5,7 +5,7 @@ import shutil
 import textwrap
 from pathlib import Path
 
-FEEDBACK_FILE = Path("/Users/afis0660/google_drive/03_General/usyd_workshop_feedback/select_feedback.md")
+FEEDBACK_FILE = Path.home() / "google_drive/03_General/usyd_workshop_feedback/select_feedback.md"
 
 def main():
     if not FEEDBACK_FILE.exists():
