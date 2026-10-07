@@ -22,11 +22,16 @@ class CalendarManager: ObservableObject {
             object: eventStore
         )
         
-        // Update current time indicator every minute
+        // Update current time indicator every minute; re-query events only when crossing midnight
         timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
             DispatchQueue.main.async {
-                self?.currentTime = Date()
-                self?.refresh()
+                guard let self = self else { return }
+                let prevDay = Calendar.current.startOfDay(for: self.currentTime)
+                let now = Date()
+                self.currentTime = now
+                if Calendar.current.startOfDay(for: now) != prevDay {
+                    self.refresh()
+                }
             }
         }
     }
