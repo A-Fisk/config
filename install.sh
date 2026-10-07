@@ -52,6 +52,12 @@ link "$REPO_DIR/ranger/scope.sh" "$HOME/.config/ranger/scope.sh"
 link "$REPO_DIR/bin/pandocx" "$HOME/.local/bin/pandocx"
 link "$REPO_DIR/bin/motivation_quote" "$HOME/.local/bin/motivation_quote"
 
+# Dayview (build Swift binary on macOS)
+if [[ "$(uname)" == "Darwin" ]] && command -v swiftc >/dev/null 2>&1; then
+  echo "Building dayview..."
+  make -C "$REPO_DIR/apps/dayview" install
+fi
+
 
 # Claude global settings and hooks
 link "$REPO_DIR/claude/settings.json" "$HOME/.claude/settings.json"
