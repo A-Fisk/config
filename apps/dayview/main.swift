@@ -158,7 +158,7 @@ struct DayCalendarView: View {
                     // Hour grid lines & labels
                     VStack(spacing: 0) {
                         ForEach(START_HOUR..<END_HOUR, id: \.self) { hour in
-                            HStack(alignment: .top, spacing: 8) {
+                            HStack(alignment: .center, spacing: 8) {
                                 Text(String(format: "%02d:00", hour))
                                     .font(.system(size: 13, weight: .medium, design: .monospaced))
                                     .foregroundColor(.secondary)
@@ -168,6 +168,7 @@ struct DayCalendarView: View {
                                     .fill(Color.primary.opacity(0.08))
                                     .frame(height: 1)
                             }
+                            .frame(height: 0, alignment: .center)
                             .frame(height: hourHeight, alignment: .top)
                         }
                     }
@@ -189,7 +190,7 @@ struct DayCalendarView: View {
                     // Events
                     ForEach(manager.timedEvents, id: \.eventIdentifier) { event in
                         if let rect = computeEventRect(event: event, width: geo.size.width - 56, totalHeight: geo.size.height) {
-                            EventBlock(event: event)
+                            EventBlock(event: event, height: rect.height)
                                 .frame(width: rect.width, height: rect.height)
                                 .offset(x: 54, y: rect.origin.y)
                         }
@@ -235,7 +236,7 @@ struct DayCalendarView: View {
         let bottomProgress = (endFloat - CGFloat(START_HOUR)) / CGFloat(TOTAL_HOURS)
         
         let y = topProgress * totalHeight
-        let height = max(18, (bottomProgress - topProgress) * totalHeight - 2)
+        let height = max(14, (bottomProgress - topProgress) * totalHeight - 2)
         
         return CGRect(x: 0, y: y, width: width, height: height)
     }
@@ -243,6 +244,7 @@ struct DayCalendarView: View {
 
 struct EventBlock: View {
     let event: EKEvent
+    let height: CGFloat
     
     var timeString: String {
         let f = DateFormatter()
@@ -251,34 +253,52 @@ struct EventBlock: View {
     }
     
     var body: some View {
-        HStack(spacing: 6) {
-            RoundedRectangle(cornerRadius: 2)
+        HStack(spacing: 5) {
+            RoundedRectangle(cornerRadius: 1.5)
                 .fill(Color(nsColor: event.calendar.color))
                 .frame(width: 3)
             
-            VStack(alignment: .leading, spacing: 2) {
-                Text(event.title ?? "Untitled")
-                    .font(.system(size: 11, weight: .semibold))
-                    .lineLimit(1)
-                    .foregroundColor(.primary)
-                
-                Text(timeString)
-                    .font(.system(size: 9))
-                    .foregroundColor(.secondary)
-                    .lineLimit(1)
+            if height < 34 {
+                // Short event: inline title + time
+                HStack(spacing: 6) {
+                    Text(event.title ?? "Untitled")
+                        .font(.system(size: 13, weight: .semibold))
+                        .lineLimit(1)
+                        .foregroundColor(.primary)
+                    
+                    Text(timeString)
+                        .font(.system(size: 9))
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                }
+            } else {
+                // Taller event: stacked title and time
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(event.title ?? "Untitled")
+                        .font(.system(size: 13, weight: .semibold))
+                        .lineLimit(1)
+                        .foregroundColor(.primary)
+                    
+                    Text(timeString)
+                        .font(.system(size: 9))
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                }
             }
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 6)
-        .padding(.vertical, 4)
+        .padding(.vertical, height < 20 ? 1 : 3)
+        .frame(maxHeight: height)
         .background(
-            RoundedRectangle(cornerRadius: 6)
+            RoundedRectangle(cornerRadius: 4)
                 .fill(Color(nsColor: event.calendar.color).opacity(0.2))
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 6)
+            RoundedRectangle(cornerRadius: 4)
                 .stroke(Color(nsColor: event.calendar.color).opacity(0.4), lineWidth: 0.5)
         )
+        .clipped()
     }
 }
 
