@@ -103,7 +103,7 @@ struct DayCalendarView: View {
             // Header
             VStack(alignment: .leading, spacing: 4) {
                 Text(dateFormatter.string(from: manager.currentTime).uppercased())
-                    .font(.system(size: 11, weight: .bold, design: .rounded))
+                    .font(.system(size: 15, weight: .bold, design: .rounded))
                     .foregroundColor(.secondary)
                 Text("Today")
                     .font(.system(size: 26, weight: .bold, design: .rounded))
@@ -118,7 +118,7 @@ struct DayCalendarView: View {
             if !manager.allDayEvents.isEmpty {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("ALL-DAY")
-                        .font(.system(size: 10, weight: .bold))
+                        .font(.system(size: 15, weight: .bold))
                         .foregroundColor(.secondary)
                     
                     ForEach(manager.allDayEvents, id: \.eventIdentifier) { event in
@@ -128,7 +128,7 @@ struct DayCalendarView: View {
                                 .frame(width: 3)
                             
                             Text(event.title ?? "Untitled")
-                                .font(.system(size: 11, weight: .medium))
+                                .font(.system(size: 13, weight: .medium))
                                 .lineLimit(nil)
                                 .fixedSize(horizontal: false, vertical: true)
                             
@@ -160,7 +160,7 @@ struct DayCalendarView: View {
                         ForEach(START_HOUR..<END_HOUR, id: \.self) { hour in
                             HStack(alignment: .top, spacing: 8) {
                                 Text(String(format: "%02d:00", hour))
-                                    .font(.system(size: 10, weight: .medium, design: .monospaced))
+                                    .font(.system(size: 13, weight: .medium, design: .monospaced))
                                     .foregroundColor(.secondary)
                                     .frame(width: 42, alignment: .trailing)
                                 
