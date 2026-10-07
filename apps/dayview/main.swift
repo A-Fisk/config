@@ -333,18 +333,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var currentMode: WindowMode = .desktopWidget
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        guard let screen = NSScreen.main else { return }
-        let visibleFrame = screen.visibleFrame
-        
-        let width = visibleFrame.width / 4.0
-        let height = visibleFrame.height
-        let x = visibleFrame.maxX - width // docked to right edge
-        let y = visibleFrame.minY
-        
-        let initialFrame = NSRect(x: x, y: y, width: width, height: height)
-        
         window = NSWindow(
-            contentRect: initialFrame,
+            contentRect: .zero,
             styleMask: [.borderless, .fullSizeContentView],
             backing: .buffered,
             defer: false
@@ -353,10 +343,45 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.isOpaque = false
         window.backgroundColor = .clear
         window.hasShadow = false
-        window.contentView = NSHostingView(rootView: DayCalendarView(manager: manager))
         
+        let hostingView = NSHostingView(rootView: DayCalendarView(manager: manager))
+        if #available(macOS 13.0, *) {
+            hostingView.sizingOptions = []
+        }
+        window.contentView = hostingView
+        
+        updateWindowFrame()
         applyMode(.desktopWidget)
         window.makeKeyAndOrderFront(nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(screenParametersChanged),
+            name: NSApplication.didChangeScreenParametersNotification,
+            object: nil
+        )
+    }
+    
+    @objc private func screenParametersChanged() {
+        DispatchQueue.main.async { [weak self] in
+            self?.updateWindowFrame()
+        }
+    }
+    
+    private func updateWindowFrame() {
+        guard let screen = NSScreen.screens.first(where: { NSMouseInRect(NSEvent.mouseLocation, $0.frame, false) })
+                ?? window?.screen
+                ?? NSScreen.main else { return }
+        
+        let visibleFrame = screen.visibleFrame
+        let width = visibleFrame.width / 4.0
+        let frame = NSRect(
+            x: visibleFrame.maxX - width,
+            y: visibleFrame.minY,
+            width: width,
+            height: visibleFrame.height
+        )
+        window.setFrame(frame, display: true, animate: false)
     }
     
     func applyMode(_ mode: WindowMode) {
