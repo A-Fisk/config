@@ -111,9 +111,9 @@ let g:tex_flavor = 'latex'
 " =============================================================================
 
 " Open ranger in a float sized and positioned to the current split
-command! Ex FloatermNew --wintype=vsplit --position=belowright --opener=edit ranger
-command! Sex  split | FloatermNew --wintype=vsplit --position=belowright --height=0.99 --width=0.5 --opener=edit ranger
-command! Vex vsplit | FloatermNew --wintype=vsplit --position=belowright --height=0.99 --width=0.5 --opener=edit ranger
+command! Ex FloatermNew --opener=edit ranger
+command! Sex  split | FloatermNew --opener=edit ranger
+command! Vex vsplit | FloatermNew --opener=edit ranger
 
 nnoremap <leader>x :Ex<CR>
 nnoremap <leader>c :Sex<CR>
