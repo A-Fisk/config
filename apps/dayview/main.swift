@@ -258,7 +258,7 @@ struct EventBlock: View {
     }
     
     var body: some View {
-        HStack(spacing: 5) {
+        HStack(alignment: .top, spacing: 5) {
             RoundedRectangle(cornerRadius: 1.5)
                 .fill(Color(nsColor: event.calendar.color))
                 .frame(width: 3)
@@ -268,8 +268,8 @@ struct EventBlock: View {
                 HStack(spacing: 6) {
                     Text(event.title ?? "Untitled")
                         .font(.system(size: 13, weight: .semibold))
-                        .lineLimit(1)
                         .foregroundColor(.primary)
+                        .fixedSize(horizontal: false, vertical: true)
                     
                     Text(timeString)
                         .font(.system(size: 9))
@@ -281,8 +281,8 @@ struct EventBlock: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(event.title ?? "Untitled")
                         .font(.system(size: 13, weight: .semibold))
-                        .lineLimit(1)
                         .foregroundColor(.primary)
+                        .fixedSize(horizontal: false, vertical: true)
                     
                     Text(timeString)
                         .font(.system(size: 9))
@@ -294,7 +294,7 @@ struct EventBlock: View {
         }
         .padding(.horizontal, 6)
         .padding(.vertical, height < 20 ? 1 : 3)
-        .frame(maxHeight: height)
+        .frame(maxHeight: height, alignment: .top)
         .background(
             RoundedRectangle(cornerRadius: 4)
                 .fill(Color(nsColor: event.calendar.color).opacity(0.2))
