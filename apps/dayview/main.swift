@@ -328,31 +328,12 @@ enum WindowMode {
 }
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var window: NSWindow!
+    var windows: [NSWindow] = []
     let manager = CalendarManager()
     var currentMode: WindowMode = .desktopWidget
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        window = NSWindow(
-            contentRect: .zero,
-            styleMask: [.borderless, .fullSizeContentView],
-            backing: .buffered,
-            defer: false
-        )
-        
-        window.isOpaque = false
-        window.backgroundColor = .clear
-        window.hasShadow = false
-        
-        let hostingView = NSHostingView(rootView: DayCalendarView(manager: manager))
-        if #available(macOS 13.0, *) {
-            hostingView.sizingOptions = []
-        }
-        window.contentView = hostingView
-        
-        updateWindowFrame()
-        applyMode(.desktopWidget)
-        window.makeKeyAndOrderFront(nil)
+        rebuildWindows()
         
         NotificationCenter.default.addObserver(
             self,
@@ -364,31 +345,52 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc private func screenParametersChanged() {
         DispatchQueue.main.async { [weak self] in
-            self?.updateWindowFrame()
+            self?.rebuildWindows()
         }
     }
     
-    private func updateWindowFrame() {
-        guard let screen = NSScreen.screens.first(where: { NSMouseInRect(NSEvent.mouseLocation, $0.frame, false) })
-                ?? window?.screen
-                ?? NSScreen.main else { return }
+    private func rebuildWindows() {
+        for w in windows {
+            w.orderOut(nil)
+        }
+        windows.removeAll()
         
-        let visibleFrame = screen.visibleFrame
-        let width = visibleFrame.width / 4.0
-        let frame = NSRect(
-            x: visibleFrame.maxX - width,
-            y: visibleFrame.minY,
-            width: width,
-            height: visibleFrame.height
-        )
-        window.setFrame(frame, display: true, animate: false)
+        for screen in NSScreen.screens {
+            let window = NSWindow(
+                contentRect: .zero,
+                styleMask: [.borderless, .fullSizeContentView],
+                backing: .buffered,
+                defer: false
+            )
+            
+            window.isOpaque = false
+            window.backgroundColor = .clear
+            window.hasShadow = false
+            
+            let hostingView = NSHostingView(rootView: DayCalendarView(manager: manager))
+            if #available(macOS 13.0, *) {
+                hostingView.sizingOptions = []
+            }
+            window.contentView = hostingView
+            
+            let visibleFrame = screen.visibleFrame
+            let width = visibleFrame.width / 4.0
+            let frame = NSRect(
+                x: visibleFrame.maxX - width,
+                y: visibleFrame.minY,
+                width: width,
+                height: visibleFrame.height
+            )
+            window.setFrame(frame, display: true, animate: false)
+            configureWindowMode(window, mode: currentMode)
+            window.orderFront(nil)
+            windows.append(window)
+        }
     }
     
-    func applyMode(_ mode: WindowMode) {
-        currentMode = mode
+    private func configureWindowMode(_ window: NSWindow, mode: WindowMode) {
         switch mode {
         case .desktopWidget:
-            // Sits on desktop level (behind windows, visible on desktop / show desktop)
             window.level = NSWindow.Level(Int(CGWindowLevelForKey(.desktopWindow)) + 1)
             window.collectionBehavior = [.canJoinAllSpaces, .stationary, .ignoresCycle]
             window.ignoresMouseEvents = false
@@ -400,6 +402,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             window.level = .floating
             window.collectionBehavior = [.canJoinAllSpaces]
             window.ignoresMouseEvents = false
+        }
+    }
+    
+    func applyMode(_ mode: WindowMode) {
+        currentMode = mode
+        for window in windows {
+            configureWindowMode(window, mode: mode)
         }
     }
 }
