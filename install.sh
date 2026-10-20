@@ -25,6 +25,28 @@ link() {
   echo "Linked: $dest -> $src"
 }
 
+# Fonts (Nordwand Mono)
+install_font() {
+  local font_dir
+  if [[ "$(uname)" == "Darwin" ]]; then
+    font_dir="$HOME/Library/Fonts"
+  else
+    font_dir="$HOME/.local/share/fonts"
+  fi
+
+  if ! find "$font_dir" -iname "*nordwand*mono*" 2>/dev/null | grep -q .; then
+    echo "Installing Nordwand Mono font..."
+    mkdir -p "$font_dir"
+    local tmp_zip="/tmp/NordwandMono.zip"
+    curl -fL -o "$tmp_zip" "https://github.com/tywr/Nordwand-Mono/releases/download/1.3.2/NordwandMono-TTF.zip"
+    unzip -q -o -d "$font_dir" "$tmp_zip" "*.ttf"
+    rm -f "$tmp_zip"
+    command -v fc-cache >/dev/null 2>&1 && fc-cache -f "$font_dir" || true
+    echo "Installed Nordwand Mono."
+  fi
+}
+install_font
+
 # Zsh
 link "$REPO_DIR/zshrc" "$HOME/.zshrc"
 link "$REPO_DIR/zshenv" "$HOME/.zshenv"
