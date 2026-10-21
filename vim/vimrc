@@ -62,6 +62,14 @@ syntax on
 set cc=81
 set showtabline=2
 
+" search highlighting, ignore case settings
+set ic hls is
+
+
+" Define mkdURL before colorscheme loads so Vim preserves uppercase casing
+" required for preservim/vim-markdown gx link detection
+hi mkdURL NONE
+
 " set theme to match
 colorscheme dracula
 hi Normal guibg=NONE ctermbg=NONE
@@ -95,6 +103,7 @@ autocmd FileType markdown,markdown.pandoc setlocal textwidth=0 wrap linebreak br
     \ | nnoremap <buffer><expr> k v:count ? 'k' : 'gk'
     \ | nnoremap <buffer><expr> $ v:count ? '$' : 'g$'
     \ | nnoremap <buffer><expr> ^ v:count ? '^' : 'g^'
+    \ | nnoremap <buffer><silent> gx :call job_start(['open', matchstr(getline('.'), 'https\?://[^ )>]*')])<CR>
 
 " Splits open to the right and below
 set splitright
