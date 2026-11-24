@@ -4,5 +4,6 @@ set -e
 
 input="$1"
 output="${input%.md}.docx"
-pandoc "$input" -o "$output"
+pandoc "$input" -o "$output" -N --shift-heading-level-by=-1
+
 echo "Created: $output"
